@@ -11,6 +11,7 @@ class Licor extends Model
 
     protected $fillable = [
         "nombre",
-        "descripcion"
+        "descripcion",
+        "precio"
     ];
 }
