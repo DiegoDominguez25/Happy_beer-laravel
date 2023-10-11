@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','Happy_beer')
+
 @section('content')
 <a href="{{ route('licor.index') }}">Atrás</a>
 <form method="POST" action="{{ route('licor.update', $licor->id) }}">
@@ -20,6 +22,12 @@
     <label for="">Precio:</label>
     <input type="text" name="precio" value="{{ $licor->precio }}">
     @error('precio')
+        <p style="color: red;">{{ $message }}</p>
+    @enderror
+
+    <label for="">Stock:</label>
+    <input type="text" name="stock" value="{{ $licor->stock }}">
+    @error('stock')
         <p style="color: red;">{{ $message }}</p>
     @enderror
 

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('licors', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('nombre',50);
+            $table->string('descripcion',100);
             $table->decimal('precio', 7, 2);
+            $table->unsignedInteger('stock');
             $table->timestamps();
         });
     }

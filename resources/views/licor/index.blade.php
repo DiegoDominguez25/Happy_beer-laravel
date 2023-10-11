@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title','Happy_beer')
+    
+
 @section('content')
 <a href="{{ route('licor.create') }}">Insertar nuevo licor</a>
 <ul>

@@ -21,10 +21,16 @@ class LicorRequest extends FormRequest
      */
     public function rules(): array
     {
+        /*
+
+        Aquí es donde van las reglas para los formulario
+        
+        */ 
         return [
-                'nombre' => 'required|max:20|min:3',
+                'nombre' => 'required|max:50|min:3',
                 'descripcion' => 'required|max:100|min:3',
-                'precio' => 'required|numeric|between:100.0,10000'
+                'precio' => 'required|numeric|between:100,10000',
+                'stock' => 'required|integer|between:1,1000'
         ];
     }
 }
