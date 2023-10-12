@@ -18,8 +18,8 @@ class BarcodeLicorFactory extends Factory
     public function definition(): array
     {
         return [
-            'codigo' => fake()->numberBetween(1,1000),
-            'licor_id' => fake()->unique()->numberBetween(0000000000000,1000000000000)
+            'codigo' => fake()->unique()->numberBetween(0000000000000,1000000000000),
+            'licor_id' => fake()->unique()->numberBetween(1,50)
         ];
     }
 }

@@ -4,8 +4,9 @@
 
 @section('content')
 <a href="{{ route('licor.index') }}">Atrás</a>
-<h1>{{ $licor->nombre }}</h1>
-<p>{{ $licor->descripcion }}</p>
-<p>{{ $licor->precio }} MX</p>
-<p>{{ $licor->stock }}</p>
+<h1>Nombre: {{ $licor->nombre }}</h1>
+<p>Descripción: {{ $licor->descripcion }}</p>
+<p>Precio: {{ $licor->precio }} MX</p>
+<p>Stock: {{ $licor->stock }}</p>
+<p>Código: {{ $licor->barcodelicor->codigo }}</p>
 @endsection
