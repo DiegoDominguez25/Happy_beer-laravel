@@ -17,7 +17,7 @@ class LicorFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => fake()->name,
+            'nombre' => fake()->name(),
             'descripcion' => fake()->sentence(),
             'precio' => fake()-> numberBetween(100,5000),
             'stock' => fake()-> numberBetween(1,1000),
