@@ -8,5 +8,4 @@
 <p>Descripción: {{ $licor->descripcion }}</p>
 <p>Precio: {{ $licor->precio }} MX</p>
 <p>Stock: {{ $licor->stock }}</p>
-<p>Código: {{ $licor->barcodelicor->codigo }}</p>
 @endsection

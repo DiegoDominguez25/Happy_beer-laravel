@@ -18,7 +18,7 @@ class LicorResource extends JsonResource
             'id' => $this->id,
             'nombre' => $this->nombre,
             'precio' => $this->precio,
-            'barcodelicor' => $this->barcodelicor->codigo
+            'barcodelicor' => $this->categoria->nombre
         ];
     }
 }
