@@ -43,9 +43,9 @@ class LicorController extends Controller
         */
         $licor = new Licor($request->all());
         $categoria = Categoria::find($request->categoria_id);
-        $categoria->licor()->save($licor);
+        $categoria->licors()->save($licor);
         return redirect()->route('licor.index')->with('success', 'Licor añadido');
-    } 
+    }
 
     public function show(Licor $licor)
     {
@@ -61,7 +61,8 @@ class LicorController extends Controller
             $licor = Licor::find($licor);
 
         */
-        return view('licor.edit', compact('licor'));
+        $categorias = Categoria::all();
+        return view('licor.edit', compact('licor','categorias'));
     }
 
     //Reglas de validación en LicorRequest
@@ -77,6 +78,8 @@ class LicorController extends Controller
             $licor->save();
 
         */
+        $categoria = Categoria::find($request->categoria_id);
+        $categoria->licors()->save($licor);
         $licor->update($request->all());
         return redirect()->route('licor.index')->with('success','Licor editado');
     }
