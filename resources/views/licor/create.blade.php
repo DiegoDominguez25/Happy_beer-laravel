@@ -30,6 +30,14 @@
         <p style="color: red;">{{ $message }}</p>
     @enderror
 
+    <label for="">Seleccione la categoria</label>
+    <select name="categoria_id" id="categoria_id">
+        @foreach($categorias as $categoria)
+                <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+            @endforeach
+    </select>
+
+
     <input type="submit" value="Create">
 </form>
 @endsection

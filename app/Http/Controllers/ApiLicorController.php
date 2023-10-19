@@ -3,64 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\Licor;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\LicorRequest;
+use App\Http\Resources\LicorResource;
 
 class ApiLicorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $licors = Licor::all();
-        return response()->json($licors, 200);
+        return LicorResource::collection(Licor::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(LicorRequest $request)
     {
-        //
+        $licor = Licor::create($request->all());
+        return response()->json([
+            'success' => true,
+            'data' => new LicorResource($licor)
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $licor = Licor::find($id);
+        /*return response()->json($licor,200);*/
+        return new LicorResource($licor);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(LicorRequest $request, string $id)
     {
-        //
+        /*$licor = Licor::find($id);
+        $licor->nombre = $request->nombre;
+        $licor->precio = $request->precio;
+        $licor->barcodelicor->codigo = $request->barcodelicor->codigo;*/
+        Licor::create($request->all());
+
+        $licor->save();
+        return response()->json([
+            'success' => true,
+            'data' => $licor
+        ],200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        Licor::find($id)->delete();
+        return response()->json([
+            'success' => true
+        ], 200);
     }
 }

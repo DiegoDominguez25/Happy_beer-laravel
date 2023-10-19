@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nombre',50);
             $table->string('descripcion',100);
-            $table->decimal('precio', 7, 2);
+            $table->decimal('precio',7,2);
             $table->unsignedInteger('stock');
+            $table->foreignId('categoria_id')->contrained();
             $table->timestamps();
         });
     }

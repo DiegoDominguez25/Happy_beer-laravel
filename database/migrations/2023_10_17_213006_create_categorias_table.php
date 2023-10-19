@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('barcode_licors', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('codigo');
-            $table->unsignedBigInteger('licor_id');
+            $table->string('nombre',30);
+            $table->decimal('grado',4,2);
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('barcode_licors');
+        Schema::dropIfExists('categorias');
     }
 };
