@@ -9,10 +9,26 @@ class Search extends Component
 {
 
     public $searchlicor="";
+    public $categorias;
+    public $categoriaFiltro;
+
+    public function mount()
+    {
+        $this->categorias = Categoria::all();
+    }
 
     public function render()
     {
-        $licors = Licor::where('nombre','like','%'. $this->searchlicor.'%')->with('categoria:id,nombre')->orderBy('nombre')->paginate(15);
+        $licors = Licor::query()
+            ->when($this->categoriaFiltro, function ($query) {
+            $query->where('categoria_id', $this->categoriaFiltro);
+        })
+        ->when($this->searchlicor, function ($query) {
+            $query->where('nombre','like', '%'. $this->searchlicor .'%');
+        })
+        ->with('categoria:id,nombre')
+        ->orderBy('nombre')
+        ->paginate(15);
         return view('livewire.search',compact('licors'));
     }
 }
