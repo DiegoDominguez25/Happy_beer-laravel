@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Http\Requests\LicorRequest;
 
+
 class LicorController extends Controller
 {
     public function index()
@@ -14,9 +15,11 @@ class LicorController extends Controller
         /*
             Retornarmos la vista con la varible a la que se pueden acceder a todos los datos
             y la utilizamos en la vista como nos sirva.
-        */
+
         $licors = Licor::with('categoria:id,nombre')->orderBy('nombre')->get();
         return view('licor.index', compact('licors'));
+        */
+        return view('licor.index');
     }
 
     public function create()
