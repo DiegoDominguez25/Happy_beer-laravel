@@ -4,8 +4,6 @@
 
 @section('content')
 
-
-<!-- component -->
 <div class="min-h-screen p-6 bg-black-100 flex items-center justify-center">
     <div class="container max-w-screen-lg mx-auto">
         <div>

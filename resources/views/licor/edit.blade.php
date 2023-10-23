@@ -3,9 +3,10 @@
 @section('title','Happy_beer')
 
 @section('content')
-<a href="{{ route('licor.index') }}">Atrás</a>
+
+
 <div class="min-h-screen p-6 bg-black-100 flex items-center justify-center">
-    <div class="container max-w-screen-lg mx-auto">
+    <div class="container mb-20 max-w-screen-lg mx-auto">
         <div>
         <form method="POST" action="{{ route('licor.update',$licor->id) }}">
             @csrf

@@ -12,8 +12,10 @@ class Search extends Component
     public $searchlicor="";
     public $categorias;
     public $categoriaFiltro;
-    public $filtro;
-    public $createdfiltro;
+    public $sortField;
+    public $sortAsc = true;
+
+    protected $queryString = ['searchlicor','categoriaFiltro','sortField'];
 
     public function mount()
     {
@@ -30,6 +32,16 @@ class Search extends Component
         $this->resetPage();
     }
 
+    public function sortBy($field)
+    {
+        if($this->sortField == $field){
+            $this->sortAsc = !$this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+        $this->sortField = $field;
+    }
+
     public function render()
     {
         $licors = Licor::query()
@@ -39,8 +51,8 @@ class Search extends Component
         ->when($this->searchlicor, function ($query) {
             $query->where('nombre','like', '%'. $this->searchlicor .'%');
         })
-        ->when($this->filtro, function ($query) {
-            $query->orderBy( 'nombre', $this->filtro);
+        ->when($this->sortField, function ($query) {
+            $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
         })
         ->with('categoria:id,nombre')
         ->paginate(15);
