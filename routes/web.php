@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LicorController;
+use App\Http\Controllers\LicorUserController;
 
 /*
 Route::get('/licor', [LicorController::class, 'index'])->name('licor.index');
@@ -17,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('/licor', LicorController::class);
+
+Route::get('/user', [LicorUserController::class, 'index'])->name('user.index');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

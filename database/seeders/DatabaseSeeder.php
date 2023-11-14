@@ -15,6 +15,16 @@ class DatabaseSeeder extends Seeder
             CategoriaSeeder::class,
         ]);
 
+        $this->call([
+            RoleSeeder::class,
+        ]);
+
+        $this->call([
+            UserSeeder::class,
+        ]);
+
         Licor::factory()->count(50)->create();
+
+
     }
 }

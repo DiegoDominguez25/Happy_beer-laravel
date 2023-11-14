@@ -7,7 +7,7 @@
 <div class="min-h-screen p-6 bg-black-100 flex items-center justify-center">
     <div class="container max-w-screen-lg mx-auto">
         <div>
-        <form method="POST" action="{{ route('licor.store') }}">
+        <form method="POST" action="{{ route('licor.store') }}" enctype="multipart/form-data">
             @csrf
             <h2 class="font-semibold text-xl text-white">Añadir licor</h2>
             <p class="text-gray-300 mb-6">Happy beer.</p>
@@ -64,6 +64,9 @@
                             @endforeach
                         </select>
                         </div>
+
+                        <label for="archivo">Imagen:</label>
+                        <input type="file" name="archivo" accept="image/*">
 
                     <div class="md:col-span-5 text-right">
                     <div class="inline-flex items-end">

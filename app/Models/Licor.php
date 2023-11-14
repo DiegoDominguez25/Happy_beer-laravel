@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Licor extends Model
 {
@@ -25,5 +26,10 @@ class Licor extends Model
     public function categoria(): BelongsTo
     {
         return $this->belongsTo(Categoria::class/*,'licor_id','id'*/);
+    }
+
+    public function archivo(): HasOne
+    {
+        return $this->hasOne(Archivo::class);
     }
 }

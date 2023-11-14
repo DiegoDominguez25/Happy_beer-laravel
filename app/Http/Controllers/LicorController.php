@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Licor;
 use App\Models\Categoria;
+use App\Models\Archivo;
 use Illuminate\Http\Request;
 use App\Http\Requests\LicorRequest;
 
 
 class LicorController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:licor.index');
+    }
+
     public function index()
     {
         /*
@@ -47,11 +54,19 @@ class LicorController extends Controller
         $licor = new Licor($request->all());
         $categoria = Categoria::find($request->categoria_id);
         $categoria->licors()->save($licor);
+
+
+        if ($request->hasFile('archivo')) {
+            $archivo = $request->file('archivo')->store('archivos', 'public');
+            $licor->archivo()->create(['ruta' => $archivo]);
+        }
+
         return redirect()->route('licor.index')->with('success', 'Licor añadido');
     }
 
     public function show(Licor $licor)
     {
+
         return view('licor.show', compact('licor'));
     }
 

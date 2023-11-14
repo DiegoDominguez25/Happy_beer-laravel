@@ -12,12 +12,13 @@
     <div key={content} class="group relative rounded-lg overflow-hidden bg-white  hover:shadow-2xl ">
 
     <div class="h-40">
-        <img
-        src='https://lp-cms-production.imgix.net/2019-06/554369495_full.jpg'
-        alt='City'
-        class="h-40 w-full object-cover object-center "
-        />
+        @if($licor->archivo)
+        <img src="{{ asset('storage/'. $licor->archivo->ruta) }}" alt="Archivo del Licor" class="h-40 w-full object-cover object-center ">
+        @else
+        <p>No hay archivo asociado a este licor.</p>
+        @endif
     </div>
+
     <div class="h-1/2 p-4 ">
             <h3 class="mb-2 text-base font-semibold text-blue-800">
             <a href='' class="hover:underline">
