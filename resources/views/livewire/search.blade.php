@@ -34,7 +34,11 @@
                 <th class="bg-gray-900 p-2 text-white md:border md:border-grey-500 text-left block md:table-cell">
                     <button wire:click="sortBy('nombre')" class="font-bold"> Nombre </button>
                     @if ($sortField !== 'nombre')
-                    <span></span>
+                    <span>
+                        <svg class="h-8 w-8 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </span>
                     @elseif ($sortAsc)
                     <span>
                         <svg class="h-8 w-8 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,7 +59,11 @@
                         Precio
                     </button>
                     @if ($sortField !== 'precio')
-                    <span></span>
+                    <span>
+                        <svg class="h-8 w-8 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </span>
                     @elseif ($sortAsc)
                     <span>
                         <svg class="h-8 w-8 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +81,11 @@
                         Stock
                     </button>
                     @if ($sortField !== 'stock')
-                    <span></span>
+                    <span>
+                        <svg class="h-8 w-8 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </span>
                     @elseif ($sortAsc)
                     <span>
                         <svg class="h-8 w-8 text-white"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -96,7 +108,6 @@
         </thead>
 
         @forelse ($licors as $licor)
-
         <tbody class="block md:table-row-group">
             <tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Nombre</span>
@@ -114,14 +125,17 @@
                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Categoria</span>
                     {{ $licor->categoria->nombre }}
                 </td>
-                <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                    <span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
-                    <a href="{{ route('licor.edit', $licor->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded ml-3">Editar</a>
-                    <form method="POST" class="mt-3 ml-3" action="{{ route('licor.destroy', $licor->id) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" value="Delete" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">Borrar</button>
-                    </form>
+                <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Acciones</span>
+
+                    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        <a href="{{ route('licor.edit', $licor->id) }}">
+                                Editar
+                        </a>
+                    </button>
+
+                    <button wire:click="$emit('deleteLicor', {{ $licor->id }})" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        Borrar
+                    </button>
                 </td>
             </tr>
 
@@ -132,4 +146,48 @@
         </tbody>
     </table>
     <div class="px-6 py-3">{{ $licors->links() }}</div>
+
+    @if ($successMessage)
+        <script>
+            document.addEventListener('livewire:load', function () {
+                // Mostrar SweetAlert de éxito
+                Swal.fire({
+                    title: 'Guardado',
+                    text: '{{ $successMessage }}',
+                    icon: 'success',
+                    timer: 3000, // Opcional: tiempo de visualización de la alerta en milisegundos
+                });
+            });
+        </script>
+    @endif
+
+@push('js')
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            livewire.on('deleteLicor', licorId => {
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "No podrás revertir esta acción!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Borrar"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emitTo('search', 'delete', licorId);
+                        Swal.fire({
+                        title: "Borrado",
+                        text: "El archivo ha sido eliminado.",
+                        icon: "success"
+                        });
+                    }
+                    });
+            })
+        </script>
+    @endpush
+
 </div>
+

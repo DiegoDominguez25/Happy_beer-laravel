@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('stock');
             $table->foreignId('categoria_id')->contrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

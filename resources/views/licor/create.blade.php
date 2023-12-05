@@ -65,9 +65,10 @@
                         </select>
                         </div>
 
-                        <label for="archivo">Imagen:</label>
-                        <input type="file" name="archivo" accept="image/*">
-
+                    <div class="md:col-span-5 text-left">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Subir archivo</label>
+                        <input type="file" name="archivo" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
+                    </div>
                     <div class="md:col-span-5 text-right">
                     <div class="inline-flex items-end">
                         <button type="submit" value="Create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar</button>

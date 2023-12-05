@@ -7,7 +7,7 @@ use App\Models\Categoria;
 use App\Models\Archivo;
 use Illuminate\Http\Request;
 use App\Http\Requests\LicorRequest;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LicorController extends Controller
 {
@@ -61,7 +61,9 @@ class LicorController extends Controller
             $licor->archivo()->create(['ruta' => $archivo]);
         }
 
-        return redirect()->route('licor.index')->with('success', 'Licor añadido');
+
+
+        return redirect()->route('licor.index')->with('success','Producto agregado con éxito.');
     }
 
     public function show(Licor $licor)
@@ -99,12 +101,14 @@ class LicorController extends Controller
         $categoria = Categoria::find($request->categoria_id);
         $categoria->licors()->save($licor);
         $licor->update($request->all());
-        return redirect()->route('licor.index')->with('success','Licor editado');
+
+        //Alert::success('Guardado', 'Los cambios han sido guardados');
+        return redirect()->route('licor.index')->with('success','Producto editado con éxito.');
     }
 
     public function destroy(Licor $licor)
     {
         $licor->delete();
-        return redirect()->route('licor.index')->with('danger', 'Licor borrado');
+        return redirect()->route('licor.index');
     }
 }

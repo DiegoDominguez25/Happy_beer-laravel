@@ -15,6 +15,8 @@ class Search extends Component
     public $sortField;
     public $sortAsc = true;
 
+    protected $listeners = ['delete'];
+
     protected $queryString = ['searchlicor','categoriaFiltro','sortField'];
 
     public function mount()
@@ -42,8 +44,15 @@ class Search extends Component
         $this->sortField = $field;
     }
 
+    public function delete(Licor $licor)
+    {
+        $licor -> delete();
+    }
+
     public function render()
     {
+        $successMessage = session('success');
+
         $licors = Licor::query()
         ->when($this->categoriaFiltro, function ($query) {
             $query->where('categoria_id', $this->categoriaFiltro);
@@ -56,6 +65,6 @@ class Search extends Component
         })
         ->with('categoria:id,nombre')
         ->paginate(15);
-        return view('livewire.search',compact('licors'));
+        return view('livewire.search',compact('licors'), ['successMessage' => $successMessage]);
     }
 }

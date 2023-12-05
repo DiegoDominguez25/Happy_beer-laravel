@@ -7,5 +7,6 @@
 
 @livewire('search')
 
-
 @endsection
+
+

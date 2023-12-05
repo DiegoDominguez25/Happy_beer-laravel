@@ -18,7 +18,7 @@ class LicorFactory extends Factory
     {
         return [
             'nombre' => fake()->name(),
-            'descripcion' => fake()->sentence(),
+            'descripcion' => fake()->text($maxNbChars = 100),
             'precio' => fake()->numberBetween(100,5000),
             'stock' => fake()->numberBetween(1,1000),
             'categoria_id' => fake()->numberBetween(1,3),

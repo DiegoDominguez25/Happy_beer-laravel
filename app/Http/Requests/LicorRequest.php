@@ -29,7 +29,7 @@ class LicorRequest extends FormRequest
         */
         return [
                 'nombre' => 'required|max:50|min:3',
-                'descripcion' => 'required|max:100|min:3',
+                'descripcion' => 'required|max:100|min:10',
                 'precio' => 'required|numeric|between:100,10000',
                 'stock' => 'required|integer|between:1,1000',
                 'archivo' => ['nullable'],
