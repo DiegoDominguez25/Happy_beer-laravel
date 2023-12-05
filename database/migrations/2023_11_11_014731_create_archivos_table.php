@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('licors', function (Blueprint $table) {
+        Schema::create('archivos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',50);
-            $table->string('descripcion',100);
-            $table->decimal('precio',7,2);
-            $table->unsignedInteger('stock');
-            $table->foreignId('categoria_id')->contrained();
+            $table->foreignId('licor_id')->constrained()->onDelete('cascade');
+            $table->string('ruta')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('licors');
+        Schema::dropIfExists('archivos');
     }
 };

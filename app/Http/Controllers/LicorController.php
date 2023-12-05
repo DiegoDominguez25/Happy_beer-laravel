@@ -4,19 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Licor;
 use App\Models\Categoria;
+use App\Models\Archivo;
 use Illuminate\Http\Request;
 use App\Http\Requests\LicorRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LicorController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:licor.index');
+    }
+
     public function index()
     {
         /*
             Retornarmos la vista con la varible a la que se pueden acceder a todos los datos
             y la utilizamos en la vista como nos sirva.
-        */
+
         $licors = Licor::with('categoria:id,nombre')->orderBy('nombre')->get();
         return view('licor.index', compact('licors'));
+        */
+        return view('licor.index');
     }
 
     public function create()
@@ -44,11 +54,21 @@ class LicorController extends Controller
         $licor = new Licor($request->all());
         $categoria = Categoria::find($request->categoria_id);
         $categoria->licors()->save($licor);
-        return redirect()->route('licor.index')->with('success', 'Licor añadido');
+
+
+        if ($request->hasFile('archivo')) {
+            $archivo = $request->file('archivo')->store('archivos', 'public');
+            $licor->archivo()->create(['ruta' => $archivo]);
+        }
+
+
+
+        return redirect()->route('licor.index')->with('success','Producto agregado con éxito.');
     }
 
     public function show(Licor $licor)
     {
+
         return view('licor.show', compact('licor'));
     }
 
@@ -81,12 +101,14 @@ class LicorController extends Controller
         $categoria = Categoria::find($request->categoria_id);
         $categoria->licors()->save($licor);
         $licor->update($request->all());
-        return redirect()->route('licor.index')->with('success','Licor editado');
+
+        //Alert::success('Guardado', 'Los cambios han sido guardados');
+        return redirect()->route('licor.index')->with('success','Producto editado con éxito.');
     }
 
     public function destroy(Licor $licor)
     {
         $licor->delete();
-        return redirect()->route('licor.index')->with('danger', 'Licor borrado');
+        return redirect()->route('licor.index');
     }
 }

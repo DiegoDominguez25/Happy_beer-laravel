@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class LicorRequest extends FormRequest
 {
@@ -24,13 +25,14 @@ class LicorRequest extends FormRequest
         /*
 
         Aquí es donde van las reglas para los formulario
-        
-        */ 
+
+        */
         return [
                 'nombre' => 'required|max:50|min:3',
-                'descripcion' => 'required|max:100|min:3',
+                'descripcion' => 'required|max:100|min:10',
                 'precio' => 'required|numeric|between:100,10000',
-                'stock' => 'required|integer|between:1,1000'
+                'stock' => 'required|integer|between:1,1000',
+                'archivo' => ['nullable'],
         ];
     }
 }

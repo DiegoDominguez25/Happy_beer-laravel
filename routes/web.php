@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LicorController;
+use App\Http\Controllers\LicorUserController;
 
 /*
 Route::get('/licor', [LicorController::class, 'index'])->name('licor.index');
@@ -13,16 +14,28 @@ Route::get('/licor/show{licor}', [LicorController::class, 'show'])->name('licor.
 Route::delete('/licor/destroy{licor}', [LicorController::class, 'destroy'])->name('licor.destroy');
 */
 
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/user', [LicorUserController::class, 'index'])->name('user.index');
+    Route::resource('/licor', LicorController::class);
+
+    Route::get('/dashboard', function () {
+        if (auth()->user()->hasRole('Admin')) {
+            return redirect('/licor');
+        } else {
+            return redirect('/user');
+        }
+    })->name('dashboard');
+
+
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('/licor', LicorController::class);
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+
+
+
+

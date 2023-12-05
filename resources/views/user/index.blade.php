@@ -1,12 +1,10 @@
-@extends('layouts.template')
+@extends('layouts.usertemplate')
 
 @section('title','Happy_beer')
 
 @section('content')
 
-
-@livewire('search')
+@livewire('index-user')
 
 @endsection
-
 
